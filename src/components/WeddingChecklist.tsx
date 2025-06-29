@@ -8,8 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LiquidButton } from '@/components/animate-ui/buttons/liquid';
 import { RippleButton } from '@/components/animate-ui/buttons/ripple';
-import { cn } from '@/lib/utils';
-import { ChecklistItem, ChecklistCategory } from '@/types/checklist';
+import { ChecklistCategory } from '@/types/checklist';
 import { defaultCategories } from '@/initial data/weddingChecklistData';
 
 const getPathAnimate = (isChecked: boolean) => ({
