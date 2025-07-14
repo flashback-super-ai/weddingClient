@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { LiquidButton } from '@/components/animate-ui/buttons/liquid';
 import { RippleButton } from '@/components/animate-ui/buttons/ripple';
 import { ChecklistCategory } from '@/types/checklist';
-import { defaultCategories } from '@/initial data/weddingChecklistData';
+import { getTranslatedCategories } from '@/initial data/translatedWeddingChecklistData';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const getPathAnimate = (isChecked: boolean) => ({
   pathLength: isChecked ? 1 : 0,
@@ -25,7 +26,8 @@ const getPathTransition = (isChecked: boolean): Transition => ({
 });
 
 function WeddingChecklist() {
-  const [categories, setCategories] = useState<ChecklistCategory[]>(defaultCategories);
+  const { t } = useTranslation()
+  const [categories, setCategories] = useState<ChecklistCategory[]>(() => getTranslatedCategories(t));
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -156,11 +158,11 @@ function WeddingChecklist() {
   }, [categories]);
 
   return (
-    <div className="space-y-8 w-full h-full">
-      <div className="bg-white rounded-2xl p-6 shadow-lg w-[70%] mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Wedding Progress</h2>
-          <div className="flex items-center space-x-4">
+    <div className="space-y-8 w-full h-full force-ltr">
+      <div className="bg-white rounded-2xl p-6 shadow-lg w-[70%] mx-auto force-ltr">
+        <div className="flex items-center justify-between mb-4 force-ltr">
+          <h2 className="text-2xl font-bold text-gray-800 text-content">{t('checklist.progress')}</h2>
+          <div className="flex items-center space-x-4 force-ltr">
             <RippleButton
               onClick={exportToExcel}
               variant="secondary"
@@ -198,7 +200,7 @@ function WeddingChecklist() {
                   <path d="M4 12v9" />
                   <path d="M20 12v9" />
                 </svg>
-                {isExporting ? 'Exporting...' : 'Export List'}
+                {isExporting ? t('checklist.exporting') : t('checklist.exportList')}
               </motion.div>
             </RippleButton>
             <LiquidButton
@@ -207,11 +209,11 @@ function WeddingChecklist() {
               size="sm"
               className="text-sm font-medium"
             >
-              + Add Category
+              + {t('checklist.addCategory')}
             </LiquidButton>
             <div className="text-right">
               <div className="text-2xl font-bold text-pink-600">{progress}%</div>
-              <div className="text-sm text-gray-600">Complete</div>
+              <div className="text-sm text-gray-600">{t('checklist.complete')}</div>
             </div>
           </div>
         </div>
@@ -224,30 +226,30 @@ function WeddingChecklist() {
       </div>
 
       {showAddCategory && (
-        <div className="bg-white rounded-xl p-4 shadow-lg">
-          <div className="flex items-center space-x-3">
+        <div className="bg-white rounded-xl p-4 shadow-lg force-ltr">
+          <div className="flex items-center space-x-3 force-ltr">
             <Input
-              placeholder="Enter category name..."
+              placeholder={t('checklist.enterCategoryName')}
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
               onKeyPress={(e) => handleKeyPress(e, addCategory)}
               className="flex-1"
               autoFocus
             />
-            <Button onClick={addCategory}>Add Category</Button>
-            <Button variant="outline" onClick={() => setShowAddCategory(false)}>Cancel</Button>
+            <Button onClick={addCategory} className="text-content">{t('checklist.addCategory')}</Button>
+            <Button variant="outline" onClick={() => setShowAddCategory(false)} className="text-content">{t('common.cancel')}</Button>
           </div>
         </div>
       )}
 
-      <div className="w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="w-full force-ltr">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 force-ltr">
           {categories.map((category) => (
-            <div key={category.id} className="bg-white rounded-xl shadow-lg overflow-hidden min-h-[400px] max-h-[600px]">
-              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-purple-50">
-                <div className="flex items-center space-x-3">
+            <div key={category.id} className="bg-white rounded-xl shadow-lg overflow-hidden min-h-[400px] max-h-[600px] force-ltr">
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-purple-50 force-ltr">
+                <div className="flex items-center space-x-3 force-ltr">
                   {editingCategory === category.id ? (
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 force-ltr">
                       <Input
                         value={newCategoryName}
                         onChange={(e) => setNewCategoryName(e.target.value)}
@@ -255,12 +257,12 @@ function WeddingChecklist() {
                         className="w-40 text-sm"
                         autoFocus
                       />
-                      <Button size="sm" onClick={() => updateCategoryName(category.id)}>Save</Button>
-                      <Button size="sm" variant="outline" onClick={() => setEditingCategory(null)}>Cancel</Button>
+                      <Button size="sm" onClick={() => updateCategoryName(category.id)} className="text-content">Save</Button>
+                      <Button size="sm" variant="outline" onClick={() => setEditingCategory(null)} className="text-content">Cancel</Button>
                     </div>
                   ) : (
                     <div className="relative">
-                      <h3 className="text-base font-semibold text-gray-800">{category.name}</h3>
+                      <h3 className="text-base font-semibold text-gray-800 text-content">{category.name}</h3>
                     </div>
                   )}
                 </div>
@@ -295,32 +297,32 @@ function WeddingChecklist() {
                 </div>
               </div>
 
-              <div className="overflow-y-auto max-h-[500px]">
-                <div className="p-4 space-y-3">
+              <div className="overflow-y-auto max-h-[500px] force-ltr">
+                <div className="p-4 space-y-3 force-ltr">
                   {showAddItem === category.id && (
-                    <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg force-ltr">
                       <Input
-                        placeholder="New task..."
+                        placeholder={t('checklist.enterTaskName')}
                         value={newItemLabel}
                         onChange={(e) => setNewItemLabel(e.target.value)}
                         onKeyPress={(e) => handleKeyPress(e, () => addItem(category.id))}
                         className="flex-1 text-sm"
                         autoFocus
                       />
-                      <Button size="sm" onClick={() => addItem(category.id)} className="text-xs px-3 py-1">Add</Button>
-                      <Button size="sm" variant="outline" onClick={() => setShowAddItem(null)} className="text-xs px-3 py-1">Cancel</Button>
+                      <Button size="sm" onClick={() => addItem(category.id)} className="text-xs px-3 py-1 text-content">{t('common.add')}</Button>
+                      <Button size="sm" variant="outline" onClick={() => setShowAddItem(null)} className="text-xs px-3 py-1 text-content">{t('common.cancel')}</Button>
                     </div>
                   )}
 
                   {category.items.map((item, idx) => (
-                    <div key={item.id} className="space-y-3">
-                      <div className="flex items-center space-x-3">
+                    <div key={item.id} className="space-y-3 force-ltr">
+                      <div className="flex items-center space-x-3 force-ltr">
                         <Checkbox
                           checked={item.checked}
                           onCheckedChange={() => toggleItem(category.id, item.id)}
                           id={`checkbox-${item.id}`}
                         />
-                        <div className="relative flex-1">
+                        <div className="relative flex-1 force-ltr">
                           {editingItem === item.id ? (
                             <div className="flex items-center space-x-2">
                               <Input
@@ -334,9 +336,9 @@ function WeddingChecklist() {
                               <Button size="sm" variant="outline" onClick={() => setEditingItem(null)} className="text-xs px-3 py-1">Cancel</Button>
                             </div>
                           ) : (
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between force-ltr">
                               <div className="relative flex-1">
-                                <Label htmlFor={`checkbox-${item.id}`} className="text-sm text-gray-700 cursor-pointer block">
+                                <Label htmlFor={`checkbox-${item.id}`} className="text-sm text-gray-700 cursor-pointer block text-content">
                                   {item.label}
                                 </Label>
                                 <motion.svg
@@ -359,7 +361,7 @@ function WeddingChecklist() {
                                   />
                                 </motion.svg>
                               </div>
-                              <div className="flex items-center space-x-1 ml-3">
+                              <div className="flex items-center space-x-1 ml-3 force-ltr">
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -367,17 +369,17 @@ function WeddingChecklist() {
                                     setEditingItem(item.id);
                                     setNewItemLabel(item.label);
                                   }}
-                                  className="text-xs px-2 py-1 h-7"
+                                  className="text-xs px-2 py-1 h-7 text-content"
                                 >
-                                  Edit
+                                  {t('common.edit')}
                                 </Button>
                                 <Button
                                   size="sm"
                                   variant="ghost"
                                   onClick={() => deleteItem(category.id, item.id)}
-                                  className="text-xs px-2 py-1 h-7"
+                                  className="text-xs px-2 py-1 h-7 text-content"
                                 >
-                                  Del
+                                  {t('common.delete')}
                                 </Button>
                               </div>
                             </div>

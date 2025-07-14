@@ -6,7 +6,9 @@ import {
   LogOut,
   Settings,
   User,
+  Languages,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,8 +20,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/animate-ui/radix/dropdown-menu';
+import { useTranslation } from '@/hooks/useTranslation';
  
 export const Profile = () => {
+  const { t, locale, changeLanguage } = useTranslation()
+  const router = useRouter()
+
+  const handleLanguageChange = async () => {
+    const newLocale = locale === 'he' ? 'en' : 'he'
+    await changeLanguage(newLocale)
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,32 +38,39 @@ export const Profile = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            className="ui-element force-ltr"
           >
             <PersonStanding />
           </motion.button>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-47 ">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuContent className="w-47 force-ltr">
+        <DropdownMenuLabel className="text-content">{t('profile.myAccount')}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="force-ltr">
             <User />
-            <span>Profile</span>
+            <span className="text-content">{t('profile.profile')}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="force-ltr">
             <CreditCard />
-            <span>Billing</span>
+            <span className="text-content">{t('profile.billing')}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="force-ltr">
             <Settings />
-            <span>Settings</span>
+            <span className="text-content">{t('profile.settings')}</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLanguageChange} className="force-ltr">
+          <Languages />
+          <span className="text-content">
+            {t('language.switchTo')} {locale === 'he' ? t('language.english') : t('language.hebrew')}
+          </span>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="force-ltr">
           <LogOut />
-          <span>Log out</span>
+          <span className="text-content">{t('profile.logout')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

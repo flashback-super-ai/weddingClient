@@ -1,14 +1,12 @@
 import NavBar from '../../components/navBar'
+import WeddingCalculator from '../../components/WeddingCalculator'
 
 export default function Calculator() {
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-pink-100 to-purple-100">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome to Calculator</h1>
-          <p className="text-lg text-gray-600">Calculate your wedding budget</p>
-        </div>
+      <div className="flex-1 bg-gradient-to-br from-pink-100 to-purple-100">
+        <WeddingCalculator />
       </div>
     </div>
   );
