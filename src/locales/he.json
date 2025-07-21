@@ -26,7 +26,8 @@
     "faceRecognition": "זיהוי פנים",
     "planner": "תכנון",
     "checkList": "רשימת משימות",
-    "calculator": "מחשבון"
+    "calculator": "מחשבון",
+    "dataManager": "מנהל נתונים"
   },
   "profile": {
     "myAccount": "החשבון שלי",
@@ -103,6 +104,33 @@
       "transportationAndAccommodation": "🚗 תחבורה ולינה",
       "weddingDay": "💍 יום החתונה",
       "postWedding": "💌 אחרי החתונה"
+    },
+    "storage": {
+      "title": "ניהול נתונים",
+      "description": "נהל את נתוני תכנון החתונה שלך - ייצא, ייבא או נקה את כל המידע השמור",
+      "storageInfo": "מידע אחסון",
+      "currentSize": "גודל אחסון נוכחי",
+      "exportTitle": "ייצא נתונים",
+      "exportDescription": "הורד את כל נתוני תכנון החתונה שלך כקובץ JSON",
+      "exportButton": "ייצא נתונים",
+      "exportSuccess": "הנתונים יוצאו בהצלחה!",
+      "exportError": "נכשל בייצא הנתונים",
+      "importTitle": "ייבא נתונים",
+      "importDescription": "ייבא נתונים שיוצאו בעבר כדי לשחזר את מידע תכנון החתונה שלך",
+      "importButton": "ייבא נתונים",
+      "importFile": "ייבא מקובץ",
+      "importDataLabel": "הדבק נתונים מיוצאים כאן",
+      "importPlaceholder": "הדבק את נתוני ה-JSON המיוצאים כאן...",
+      "importConfirm": "ייבא נתונים",
+      "importSuccess": "הנתונים יובאו בהצלחה!",
+      "importError": "נכשל בייבא הנתונים",
+      "importDataRequired": "אנא הזן נתונים לייבא",
+      "clearTitle": "נקה את כל הנתונים",
+      "clearDescription": "מחק לצמיתות את כל נתוני תכנון החתונה שלך. פעולה זו לא ניתנת לביטול.",
+      "clearButton": "נקה את כל הנתונים",
+      "clearSuccess": "כל הנתונים נוקו בהצלחה!",
+      "clearError": "נכשל בניקוי הנתונים",
+      "clearConfirm": "האם אתה בטוח שברצונך לנקות את כל הנתונים? פעולה זו לא ניתנת לביטול."
     },
     "tasks": {
       "chooseWeddingDate": "בחר תאריך חתונה",

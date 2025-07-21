@@ -1,14 +1,31 @@
-import NavBar from '../../components/navBar'
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import WeddingPlannerMap from '../../components/planner/map';
 
 export default function Planner() {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <NavBar />
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-pink-100 to-purple-100">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome to Planner</h1>
-          <p className="text-lg text-gray-600">Plan your perfect wedding</p>
-        </div>
+    <div className="h-screen flex flex-col">
+      {/* Back Button Header */}
+      <div className="flex-shrink-0 bg-background border-b p-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => router.push('/')}
+          className="flex items-center gap-2 hover:bg-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Button>
+      </div>
+      
+      {/* Planner Content */}
+      <div className="flex-1">
+        <WeddingPlannerMap />
       </div>
     </div>
   );

@@ -156,8 +156,37 @@ export default function WeddingCalculator() {
   const [guestCount, setGuestCount] = useState<number>(100)
   const [currency, setCurrency] = useState<string>('USD')
   const [mealCostPerPerson, setMealCostPerPerson] = useState<number>(95)
-  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>(getDefaultBudgetItems(currency, guestCount, mealCostPerPerson))
+  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([])
   const [animateBudget, setAnimateBudget] = useState<number>(0)
+
+  // Load calculator data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('wedding_app_calculator')
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData)
+        setTotalBudget(parsed.totalBudget || 25000)
+        setGuestCount(parsed.guestCount || 100)
+        setCurrency(parsed.currency || 'USD')
+        setMealCostPerPerson(parsed.mealCostPerPerson || 95)
+        setBudgetItems(parsed.budgetItems || [])
+      } catch (error) {
+        console.error('Error loading calculator data from localStorage:', error)
+      }
+    }
+  }, [])
+
+  // Save calculator data to localStorage whenever it changes
+  useEffect(() => {
+    const dataToSave = {
+      totalBudget,
+      guestCount,
+      currency,
+      mealCostPerPerson,
+      budgetItems
+    }
+    localStorage.setItem('wedding_app_calculator', JSON.stringify(dataToSave))
+  }, [totalBudget, guestCount, currency, mealCostPerPerson, budgetItems])
 
   const calculatedBudget = useMemo(() => {
     if (currency === 'ILS') {
@@ -209,7 +238,7 @@ export default function WeddingCalculator() {
       actualCost: 0,
       notes: ''
     }
-    setBudgetItems([...budgetItems, newItem])
+    setBudgetItems(prev => [...prev, newItem])
   }
 
   const updateBudgetItem = (id: string, field: keyof BudgetItem, value: string | number) => {

@@ -26,7 +26,8 @@
     "faceRecognition": "Face Recognition",
     "planner": "Planner",
     "checkList": "Checklist",
-    "calculator": "Calculator"
+    "calculator": "Calculator",
+    "dataManager": "Data Manager"
   },
   "profile": {
     "myAccount": "My Account",
@@ -103,6 +104,33 @@
       "transportationAndAccommodation": "🚗 Transportation & Accommodation",
       "weddingDay": "💍 Wedding Day",
       "postWedding": "💌 Post-Wedding"
+    },
+    "storage": {
+      "title": "Data Management",
+      "description": "Manage your wedding planning data - export, import, or clear all saved information",
+      "storageInfo": "Storage Information",
+      "currentSize": "Current storage size",
+      "exportTitle": "Export Data",
+      "exportDescription": "Download all your wedding planning data as a JSON file",
+      "exportButton": "Export Data",
+      "exportSuccess": "Data exported successfully!",
+      "exportError": "Failed to export data",
+      "importTitle": "Import Data",
+      "importDescription": "Import previously exported data to restore your wedding planning information",
+      "importButton": "Import Data",
+      "importFile": "Import from File",
+      "importDataLabel": "Paste exported data here",
+      "importPlaceholder": "Paste your exported JSON data here...",
+      "importConfirm": "Import Data",
+      "importSuccess": "Data imported successfully!",
+      "importError": "Failed to import data",
+      "importDataRequired": "Please enter data to import",
+      "clearTitle": "Clear All Data",
+      "clearDescription": "Permanently delete all your wedding planning data. This action cannot be undone.",
+      "clearButton": "Clear All Data",
+      "clearSuccess": "All data cleared successfully!",
+      "clearError": "Failed to clear data",
+      "clearConfirm": "Are you sure you want to clear all data? This action cannot be undone."
     },
     "tasks": {
       "chooseWeddingDate": "Choose wedding date",

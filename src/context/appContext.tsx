@@ -22,17 +22,23 @@ export function AppProvider({ children }: AppProviderProps) {
   const [translations, setTranslations] = useState<Record<string, any>>({})
   const [isLoading, setIsLoading] = useState(true)
 
-  // Load initial locale from cookie or default
+  // Load initial locale from localStorage, then cookie, then default
   useEffect(() => {
     const savedLocale = document.cookie
       .split('; ')
       .find(row => row.startsWith('NEXT_LOCALE='))
       ?.split('=')[1]
     
+    const localStorageLocale = localStorage.getItem('wedding_app_locale')
+    
     if (savedLocale && ['he', 'en'].includes(savedLocale)) {
       setLocale(savedLocale)
+      localStorage.setItem('wedding_app_locale', savedLocale)
+    } else if (localStorageLocale && ['he', 'en'].includes(localStorageLocale)) {
+      setLocale(localStorageLocale)
     } else {
       setLocale('he')
+      localStorage.setItem('wedding_app_locale', 'he')
     }
   }, [])
 
@@ -63,6 +69,9 @@ export function AppProvider({ children }: AppProviderProps) {
     
     // Set cookie for persistence
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}`
+    
+    // Save to localStorage
+    localStorage.setItem('wedding_app_locale', newLocale)
     
     // Load new translations first
     try {

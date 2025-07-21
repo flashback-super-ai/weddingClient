@@ -1,6 +1,6 @@
 'use client'
 
-import {Tv2Icon , Wand2Icon , GiftIcon , SendIcon ,Settings2Icon , LayoutDashboardIcon , ArmchairIcon , ScanFaceIcon , WandIcon , ListCheckIcon , CalculatorIcon } from "lucide-react"
+import {Tv2Icon , Wand2Icon , GiftIcon , SendIcon ,Settings2Icon , LayoutDashboardIcon , ArmchairIcon , ScanFaceIcon , WandIcon , ListCheckIcon , CalculatorIcon , DatabaseIcon } from "lucide-react"
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Profile } from './profile'
@@ -88,6 +88,14 @@ export default function NavBar() {
           title={t('navigation.calculator')}
         >
           <CalculatorIcon size={20} />
+        </button>
+
+        <button 
+          onClick={() => handleNavigation('/dataManager')}
+          className="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 hover:shadow-lg transition-all ui-element"
+          title={t('navigation.dataManager', 'Data Manager')}
+        >
+          <DatabaseIcon size={20} />
         </button>
         </div>
         <div className="pr-6 -mt-1 force-ltr">
